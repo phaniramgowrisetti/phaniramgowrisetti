@@ -3,15 +3,28 @@
 ```text
 ╭──────────────────────────────────────────────────────────────╮
 │                                                              │
-│                          PHANI RAM                           │
-│                          PR//WORKSPACE                       │
+│  ██████╗ ██╗  ██╗ █████╗ ███╗   ██╗██╗                       │
+│  ██╔══██╗██║  ██║██╔══██╗████╗  ██║██║                       │
+│  ██████╔╝███████║███████║██╔██╗ ██║██║                       │
+│  ██╔═══╝ ██╔══██║██╔══██║██║╚██╗██║██║                       │
+│  ██║     ██║  ██║██║  ██║██║ ╚████║██║                       │
+│  ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝                       │
 │                                                              │
-│                       Developer Dashboard                    │
-│         FULL STACK ENGINEER • OPEN SOURCE CONTRIBUTOR        │
+│  ██████╗  █████╗ ███╗   ███╗                                 │
+│  ██╔══██╗██╔══██╗████╗ ████║                                 │
+│  ██████╔╝███████║██╔████╔██║                                 │
+│  ██╔══██╗██╔══██║██║╚██╔╝██║                                 │
+│  ██║  ██║██║  ██║██║ ╚═╝ ██║                                 | 
+│  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝                                 │
+│                                                              │
+│                      PR//WORKSPACE                           │
+│                   Developer Dashboard                        │
 │                                                              │
 ╰──────────────────────────────────────────────────────────────╯
 ```
-
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=26&duration=3000&pause=1000&color=A855F7&center=true&vCenter=true&width=700&lines=Hi%2C+I'm+Phani+Ram;Full-Stack+Developer;Python+%7C+HTML+%7C+CSS;Always+Learning+New+Things" />
+</p>
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=22&pause=2000&color=A855F7&width=720&height=56&lines=Full%20Stack%20Engineer;Open%20Source%20Contributor;Building%20Modern%20Web%20Applications;Building%20Products%20That%20Matter" alt="typing" />
 
 <img src="assets/hero.svg" width="100%" alt="PHANI RAM Hero" />
