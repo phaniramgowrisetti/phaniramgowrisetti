@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" role="img" aria-label="Radar — PR//WORKSPACE" preserveAspectRatio="xMidYMid meet">
+  <title>Radar — PR//WORKSPACE</title>
+  <desc>Minimal circular radar visualization — cyan #22D3EE, purple #A855F7, grid #30363D, accent #3FB950.</desc>
+
+  <defs>
+    <clipPath id="circle-clip"><circle cx="256" cy="256" r="208"/></clipPath>
+  </defs>
+
+  <!-- transparent background -->
+  <rect width="100%" height="100%" fill="transparent" />
+
+  <!-- radar group centered -->
+  <g>
+    <!-- outer ring clip to keep sweep neat -->
+    <g clip-path="url(#circle-clip)">
+
+      <!-- concentric rings -->
+      <g fill="none" stroke="#30363D" stroke-width="2">
+        <circle cx="256" cy="256" r="208"/>
+        <circle cx="256" cy="256" r="152"/>
+        <circle cx="256" cy="256" r="96"/>
+        <circle cx="256" cy="256" r="40"/>
+      </g>
+
+      <!-- crosshair lines -->
+      <g stroke="#30363D" stroke-width="2">
+        <line x1="48" y1="256" x2="464" y2="256" />
+        <line x1="256" y1="48" x2="256" y2="464" />
+      </g>
+
+      <!-- static sweep beam (sector shape) -->
+      <path d="M256 256 L448 160 A208 208 0 0 0 312 48 Z" fill="#22D3EE" opacity="0.12"/>
+
+      <!-- center point -->
+      <circle cx="256" cy="256" r="6" fill="#22D3EE" />
+      <circle cx="256" cy="256" r="2" fill="#0D1117" />
+
+      <!-- radar blips (flat, small) -->
+      <g>
+        <circle cx="360" cy="210" r="5" fill="#3FB950" />
+        <circle cx="300" cy="140" r="4" fill="#A855F7" />
+        <circle cx="200" cy="180" r="4" fill="#22D3EE" />
+        <circle cx="420" cy="280" r="3" fill="#A855F7" />
+        <circle cx="320" cy="330" r="3" fill="#22D3EE" />
+        <circle cx="180" cy="320" r="4" fill="#3FB950" />
+      </g>
+
+    </g>
+
+    <!-- subtle outer ring stroke to separate from background -->
+    <circle cx="256" cy="256" r="208" fill="none" stroke="#30363D" stroke-width="1" opacity="0.6" />
+  </g>
+
+</svg>

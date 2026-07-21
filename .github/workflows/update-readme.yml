@@ -1,0 +1,142 @@
+name: Update README
+
+# Validate and refresh README whenever changes are pushed to main or manually triggered.
+# - Verifies README.md exists
+# - Ensures required SVG assets are present
+# - Checks image references in README (local files or reachable URLs)
+# - Runs markdownlint to validate Markdown syntax
+# - Commits any generated/changed files back to the repository with a standard message
+
+on:
+  push:
+    branches: [ 'main' ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  validate-readme:
+    name: Validate README and assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Ensure README.md exists
+        run: |
+          set -euo pipefail
+          if [ ! -f README.md ]; then
+            echo "ERROR: README.md not found in repository root." >&2
+            exit 1
+          fi
+
+      - name: Validate required SVG assets exist
+        run: |
+          set -euo pipefail
+          missing=()
+          for f in assets/hero.svg assets/logo.svg assets/divider.svg assets/terminal.svg assets/shutdown.svg assets/radar.svg; do
+            if [ ! -f "$f" ]; then
+              missing+=("$f")
+            fi
+          done
+          if [ ${#missing[@]} -ne 0 ]; then
+            echo "ERROR: The following required asset files are missing:" >&2
+            for m in "${missing[@]}"; do echo "  - $m" >&2; done
+            exit 1
+          fi
+
+      - name: Verify image references inside README.md
+        run: |
+          set -euo pipefail
+          echo "Checking image references in README.md..."
+
+          # Extract markdown image links: ![alt](path)
+          md_links=$(grep -oP '!\[[^\]]*\]\(([^)]+)\)' README.md || true)
+          # Extract HTML img src values: <img src="...">
+          html_links=$(grep -oP '<img[^>]*src=["\'\`]?([^"\'\` >]+)' README.md || true)
+
+          failures=()
+
+          check_link() {
+            link="$1"
+            # Strip surrounding punctuation
+            link=$(echo "$link" | sed -E 's/^\(|\)$//g')
+
+            # Skip anchors and empty
+            if [[ -z "$link" || "$link" =~ ^# ]]; then
+              return
+            fi
+
+            if [[ "$link" =~ ^https?:// ]]; then
+              # Remote link: check reachable (HEAD request)
+              if ! curl -sSfI --max-time 10 "$link" >/dev/null; then
+                failures+=("Remote image unreachable: $link")
+              fi
+            elif [[ "$link" =~ ^data: ]]; then
+              # data URI — assume ok
+              return
+            else
+              # Local file path — normalize and test
+              # Remove optional leading ./
+              path=$(echo "$link" | sed -E 's#^\./##')
+              if [ ! -f "$path" ]; then
+                failures+=("Local image not found: $path")
+              fi
+            fi
+          }
+
+          # Process markdown links (avoid subshell so failures[] is updated correctly)
+          if [ -n "$md_links" ]; then
+            while IFS= read -r line; do
+              url=$(echo "$line" | sed -E 's/.*\(([^)]+)\).*/\1/')
+              check_link "$url"
+            done <<< "$md_links"
+          fi
+
+          # Process html img srcs (avoid subshell)
+          if [ -n "$html_links" ]; then
+            while IFS= read -r line; do
+              url=$(echo "$line" | sed -E 's/.*src=["\'\`]?([^"\'\` ]+).*/\1/')
+              check_link "$url"
+            done <<< "$html_links"
+          fi
+
+          if [ ${#failures[@]} -ne 0 ]; then
+            echo "ERROR: Found invalid image references:" >&2
+            for f in "${failures[@]}"; do echo "  - $f" >&2; done
+            exit 1
+          fi
+          echo "All image references are valid."
+
+      - name: Validate Markdown syntax with markdownlint
+        run: |
+          set -euo pipefail
+          echo "Installing markdownlint..."
+          npm install -g markdownlint-cli@0.35.0
+          echo "Running markdownlint on README.md..."
+          markdownlint README.md || {
+            echo "ERROR: markdownlint found issues in README.md" >&2
+            exit 1
+          }
+
+      - name: Commit any changes (if present)
+        env:
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          git config user.name "$GIT_COMMITTER_NAME"
+          git config user.email "$GIT_COMMITTER_EMAIL"
+
+          if git status --porcelain | grep .; then
+            echo "Changes detected — committing with message 'chore: update README assets'"
+            git add -A
+            git commit -m "chore: update README assets [skip ci]"
+            git push origin HEAD:main
+          else
+            echo "No changes to commit."
+          fi

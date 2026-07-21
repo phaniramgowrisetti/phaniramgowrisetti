@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 160" width="100%" role="img" aria-label="PR//WORKSPACE logo" preserveAspectRatio="xMidYMid meet">
+  <title>PR//WORKSPACE</title>
+  <desc>Minimal responsive logo for PR//WORKSPACE — purple and cyan accents, JetBrains Mono style.</desc>
+  <rect width="100%" height="100%" fill="transparent" />
+  <style>
+    .logo-text{font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Segoe UI Mono', monospace; font-weight:700; font-size:48px; letter-spacing:1px; shape-rendering:geometricPrecision; dominant-baseline:middle}
+    .purple{fill:#A855F7}
+    .cyan{fill:#22D3EE}
+    .cursor{fill:#22D3EE}
+  </style>
+
+  <!-- subtle terminal-inspired cursor bar (left) -->
+  <rect x="44" y="56" width="8" height="48" rx="2" class="cursor" opacity="0.98" />
+
+  <!-- main logo text centered -->
+  <text x="50%" y="92" text-anchor="middle" class="logo-text">
+    <tspan class="purple">PR//</tspan><tspan class="cyan">WORKSPACE</tspan>
+  </text>
+
+  <!-- accessible fallback: small underline hint (flat design) -->
+  <rect x="160" y="106" width="280" height="2" fill="#A855F7" opacity="0.06" />
+</svg>

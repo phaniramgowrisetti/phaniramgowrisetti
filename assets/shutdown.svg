@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="100%" role="img" aria-label="Shutdown screen — PR//WORKSPACE" preserveAspectRatio="xMidYMid meet">
+  <title>Shutdown — PR//WORKSPACE</title>
+  <desc>Minimal terminal shutdown screen — GitHub Dark theme, monospace text.</desc>
+
+  <!-- Window -->
+  <rect x="40" y="40" width="820" height="460" rx="12" fill="#0D1117" stroke="#30363D" stroke-width="2" />
+
+  <!-- Window controls -->
+  <g transform="translate(64,62)">
+    <circle cx="0" cy="0" r="8" fill="#FF5F56" />
+    <circle cx="28" cy="0" r="8" fill="#FFBD2E" />
+    <circle cx="56" cy="0" r="8" fill="#3FB950" />
+  </g>
+
+  <!-- Content -->
+  <g transform="translate(84,120)" font-family="JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Segoe UI Mono', monospace" font-size="20" text-anchor="start">
+    <text x="0" y="0" fill="#E6EDF3">&gt; logout</text>
+
+    <text x="0" y="40" fill="#E6EDF3">Saving workspace...</text>
+    <text x="0" y="72" fill="#E6EDF3">Stopping background services...</text>
+    <text x="0" y="104" fill="#E6EDF3">Syncing GitHub...</text>
+    <text x="0" y="136" fill="#3FB950">Workspace saved successfully.</text>
+
+    <text x="0" y="188" fill="#E6EDF3">Thank you for visiting <tspan fill="#A855F7">PR//WORKSPACE</tspan>.</text>
+
+    <text x="0" y="236" fill="#22D3EE">Connection closed.</text>
+  </g>
+
+</svg>

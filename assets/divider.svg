@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 48" width="100%" role="img" aria-label="Section divider" preserveAspectRatio="xMidYMid meet">
+  <title>PR//WORKSPACE divider</title>
+  <desc>Minimal full-width divider — purple #A855F7 and cyan #22D3EE, transparent background.</desc>
+
+  <!-- transparent background -->
+  <rect width="1200" height="48" fill="transparent" />
+
+  <!-- thin center line -->
+  <line x1="72" y1="24" x2="1128" y2="24" stroke="#A855F7" stroke-width="2" stroke-linecap="square" opacity="0.95" />
+
+  <!-- left geometric accents (outer cyan, inner purple) -->
+  <g id="left-accents">
+    <polygon points="36,24 60,12 60,36" fill="#22D3EE" />
+    <polygon points="44,24 60,16 60,32" fill="#A855F7" />
+  </g>
+
+  <!-- right geometric accents (mirrored) -->
+  <g id="right-accents">
+    <polygon points="1164,24 1140,12 1140,36" fill="#22D3EE" />
+    <polygon points="1156,24 1140,16 1140,32" fill="#A855F7" />
+  </g>
+
+</svg>

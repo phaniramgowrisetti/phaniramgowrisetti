@@ -1,0 +1,71 @@
+name: Generate Contribution Snake
+
+# Generates the GitHub contribution "snake" SVGs (light + dark)
+# Triggers:
+#  - daily at 00:00 UTC
+#  - on push to `main`
+#  - manual dispatch
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  push:
+    branches: [ 'main' ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  generate-snake:
+    name: Generate and commit contribution grid snake
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository so we can write the generated SVGs and commit them
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # ensure we can push back to the repo using the provided token
+          persist-credentials: true
+          fetch-depth: 0
+
+      # Generate light version of the snake using Platane/snk
+      - name: Generate contribution grid snake (light)
+        uses: platane/snk@v3
+        with:
+          # Action uses this token to read contributions and write files
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Output path (relative to repository root)
+          output: output/github-contribution-grid-snake.svg
+          # Use the default (light) theme
+          theme: default
+
+      # Generate dark version of the snake using Platane/snk
+      - name: Generate contribution grid snake (dark)
+        uses: platane/snk@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          output: output/github-contribution-grid-snake-dark.svg
+          theme: dark
+
+      # Commit generated files to the `output` branch
+      - name: Commit and push generated SVGs to output branch
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          git config user.name "$GIT_AUTHOR_NAME"
+          git config user.email "$GIT_AUTHOR_EMAIL"
+
+          # Create branch `output` (or reset it) and add generated files
+          git checkout -B output
+          mkdir -p output
+          git add -A output/github-contribution-grid-snake*.svg
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(snake): update contribution grid snake SVGs [skip ci]"
+            # Force push updates to the output branch
+            git push origin output --force
+          fi
